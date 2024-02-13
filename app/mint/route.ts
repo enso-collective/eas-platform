@@ -73,12 +73,12 @@ async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, c
         schema: SchemaUID,
         data: {
             recipient: attest_wallet,
-            expirationTime: BigInt(0),
             revocable: true,
             data: encodedData
         },
     });
 
+    console.log(tx);
     const newAttestationUID = await tx.wait();
     console.log("New attestation UID:", newAttestationUID);
     console.log(tx.tx.hash)
