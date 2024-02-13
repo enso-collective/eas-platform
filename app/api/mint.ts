@@ -15,7 +15,7 @@ interface Body {
 
 const ZAPIER_SECRET = process.env.ZAPIER_SECRET;
 
-const handleRequestexport = async (req: NextApiRequest, res: NextApiResponse) => {
+const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const body = await req.body() as Body;
 
@@ -83,3 +83,5 @@ async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, c
     console.log(tx.tx.hash)
     return tx.tx.hash;
 }
+
+export default handleRequest;
