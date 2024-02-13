@@ -3,26 +3,25 @@ import { ethers } from "ethers";
 
 const ZAPIER_SECRET = process.env.ZAPIER_SECRET;
 
+
 export async function POST(request: Request) {
     
-    const res = await request.json()
+    const req = await request.json()
 
     // Extract necessary data from the request json
-    const { cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand } = res;
+    const { cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand } = req;
 
     // Check if the request includes the correct token
-    if (res.token !== ZAPIER_SECRET) {
-        res.status(401).send("Invalid token");
+    if (req.token !== ZAPIER_SECRET) {
+        req.status(401).send("Invalid token");
         return;
     }
     
     // Mint an EAS
-    const txHash = await eas_mint(cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand);
-    const myOptions = { status: 200, statusText: "EAS tx hash" };
-    const myResponse = new Response(txHash, myOptions);
-    return myResponse;
-}
+    const res = await eas_mint(cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand);
 
+    return Response.json({ res })
+}
 
 async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, cast_content: string, cast_image_link: string, assoc_brand: string) {
     //push to EAS either onchain or offchain. docs: https://docs.attest.sh/docs/tutorials/make-an-attestation
