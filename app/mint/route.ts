@@ -25,15 +25,16 @@ export async function POST(request: Request) {
     }
     
     // Mint an EAS
+
     const res = await eas_mint(cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand);
 
     return Response.json({ res })
 }
+
 export async function GET(request: Request) {
     const res = "hello!"
     return Response.json({ res })
 }
-
 
 
 async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, cast_content: string, cast_image_link: string, assoc_brand: string) {
@@ -51,7 +52,8 @@ async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, c
     const eas = new EAS("0x4200000000000000000000000000000000000021"); //https://docs.attest.sh/docs/quick--start/contracts#base
     eas.connect(signer);
 
-    const ts = Date.now();
+    const ts = Math.floor(Date.now() / 1000);
+    
     cast_hash = cast_hash.startsWith('0x') ? cast_hash.substring(2) : cast_hash; //depending on source, sometimes hash has 0x in it.
         
     // Initialize SchemaEncoder with the schema string
