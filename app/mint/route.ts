@@ -6,22 +6,22 @@ const ZAPIER_SECRET = process.env.ZAPIER_SECRET;
 
 export async function POST(request: Request) {
     
-    const req = await request.json()
+    const reqBody = await request.json()
 
     // Extract necessary data from the request json
-    const cast_hash = req.json.cast_hash;
-    const fid = req.json.fid;
-    const attest_wallet = req.json.attest_wallet;
-    const cast_content = req.json.cast_content;
-    const cast_image_link = req.json.cast_hash;
-    const assoc_brand = req.json.assoc_brand;
+    const cast_hash = reqBody.cast_hash;
+    const fid = reqBody.fid;
+    const attest_wallet = reqBody.attest_wallet;
+    const cast_content = reqBody.cast_content;
+    const cast_image_link = reqBody.cast_hash;
+    const assoc_brand = reqBody.assoc_brand;
 
-    const zapier_token = req.json.token;
+    const zapier_token = reqBody.token;
     
 
     // Check if the request includes the correct token
     if (zapier_token !== ZAPIER_SECRET) {
-        return Response.json({ req })
+        return Response.json({ reqBody })
     }
     
     // Mint an EAS
