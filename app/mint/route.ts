@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
     
     // Mint an EAS
-
+    console.log(reqBody);
     const res = await eas_mint(cast_hash, fid, attest_wallet, cast_content, cast_image_link, assoc_brand);
 
     return Response.json({ res })
@@ -55,7 +55,7 @@ async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, c
     const ts = Math.floor(Date.now() / 1000);
     
     cast_hash = cast_hash.startsWith('0x') ? cast_hash.substring(2) : cast_hash; //depending on source, sometimes hash has 0x in it.
-        
+    console.log(cast_hash);
     // Initialize SchemaEncoder with the schema string
     const schemaEncoder = new SchemaEncoder("uint32 timestamp, uint32 farcasterID, string castHash, string castTextContent, string castImageLink, string associatedBrand");
     const encodedData = schemaEncoder.encodeData([
