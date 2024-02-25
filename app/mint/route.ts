@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     const fid = reqBody.fid;
     const attest_wallet = reqBody.attest_wallet;
     const cast_content = reqBody.cast_content;
-    const cast_image_link = reqBody.cast_hash;
+    const cast_image_link = reqBody.cast_image_link;
     const assoc_brand = reqBody.assoc_brand;
 
     const zapier_token = reqBody.token;
@@ -66,7 +66,6 @@ async function eas_mint(cast_hash: string, fid: string, attest_wallet: string, c
         { name: "castImageLink", value: cast_image_link, type: "string" },
         { name: "associatedBrand", value: assoc_brand, type: "string" },
     ]);
-    console.log(encodedData)
     const SchemaUID = "0xd88b6019cbfad1a9b093f2b4dcd96e443923f3ed434ed1a01677e2558f0b1f9c";    
 
     const tx = await eas.attest({
